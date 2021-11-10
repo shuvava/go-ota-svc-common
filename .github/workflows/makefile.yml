@@ -12,10 +12,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Install dependencies
-      run: make
+      - name: Install dependencies
+        run: make
 
-    - name: Run lint
-      run: make lint
+      - name: Run lint
+        run: make lint
+
+      - name: Run tests
+        run: make test
