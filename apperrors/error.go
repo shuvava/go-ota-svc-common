@@ -2,8 +2,6 @@ package apperrors
 
 import (
 	"fmt"
-
-	"github.com/shuvava/go-ota-svc-common/data"
 )
 
 // AppErrorCode is a type of AppError
@@ -18,8 +16,6 @@ type AppError struct {
 	ErrorCode AppErrorCode `json:"error_code"`
 	// Description description of error
 	Description string `json:"description"`
-	// ErrorID unique ID of error required for easier look error in application logs
-	ErrorID data.CorrelationID `json:"error_id"`
 }
 
 func (err AppError) Error() string {
@@ -28,11 +24,9 @@ func (err AppError) Error() string {
 
 // NewAppError creates new AppError
 func NewAppError(code AppErrorCode, descr string) error {
-	id := data.NewCorrelationID()
 	return AppError{
 		ErrorCode:   code,
 		Description: descr,
-		ErrorID:     id,
 	}
 }
 

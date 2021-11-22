@@ -60,6 +60,10 @@ github.com/rogpeppe/go-internal v1.2.2/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFR
 github.com/rogpeppe/go-internal v1.3.0/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFRclV5y23lUDJ4=
 github.com/shuvava/go-logging v1.0.2 h1:DpPAG4e/grkdMH+YCg3tSqtOGwymDpBEEUgYuhBf4qE=
 github.com/shuvava/go-logging v1.0.2/go.mod h1:4ReA5wGShDtIh+BDwKA0La1/Cpz3btVkQZF+RisGafw=
+github.com/shuvava/go-logging v1.0.3 h1:Py/eMqW0vhIUaiatFDupJKwkb1D9rAcKQC14o1qh/1w=
+github.com/shuvava/go-logging v1.0.3/go.mod h1:4ReA5wGShDtIh+BDwKA0La1/Cpz3btVkQZF+RisGafw=
+github.com/shuvava/go-logging v1.0.4 h1:ufDmjFRUi77ZM4jr2WhwW5fI7pax7leVCepjfs7a5nk=
+github.com/shuvava/go-logging v1.0.4/go.mod h1:4ReA5wGShDtIh+BDwKA0La1/Cpz3btVkQZF+RisGafw=
 github.com/sirupsen/logrus v1.4.0/go.mod h1:LxeOpSwHxABJmUn/MG1IvRgCAasNZTLOkJPxbbu5VWo=
 github.com/sirupsen/logrus v1.4.1/go.mod h1:ni0Sbl8bgC9z8RoU9G6nDWqqs/fq4eDPysMBDgk/93Q=
 github.com/sirupsen/logrus v1.4.2/go.mod h1:tLMulIdttU9McNUspp0xgXVQah82FyeX6MwdIuYE2rE=

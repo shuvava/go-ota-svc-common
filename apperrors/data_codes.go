@@ -1,8 +1,8 @@
 package apperrors
 
 const (
-	// ErrorDataObjectIDSerialization is error type returned if data.ObjectID was not serialized successfully
-	ErrorDataObjectIDSerialization = ErrorNamespaceData + ":ObjectIdSerialization"
-	// ErrorDataRefValidation is error type returned if data.Ref is not pass validation
-	ErrorDataRefValidation = ErrorNamespaceData + ":RefValidation"
+	// ErrorDataSerialization is error type returned if data.ObjectID was not serialized successfully
+	ErrorDataSerialization = ErrorNamespaceData + ":Serialization"
+	// ErrorDataValidation is error type returned if data.Ref is not pass validation
+	ErrorDataValidation = ErrorNamespaceData + ":Validation"
 )

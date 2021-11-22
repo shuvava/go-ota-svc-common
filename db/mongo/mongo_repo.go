@@ -60,7 +60,7 @@ type Db struct {
 
 // NewMongoDB create a new Db instance, with the connection URI provided
 func NewMongoDB(ctx context.Context, lgr logger.Logger, connectString string) (*Db, error) {
-	log := lgr.SetContext("Db").WithContext(ctx)
+	log := lgr.SetOperation("Db").WithContext(ctx)
 	cs, err := connstring.ParseAndValidate(connectString)
 	if err != nil {
 		log.WithError(err).
