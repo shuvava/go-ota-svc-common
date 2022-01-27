@@ -5,6 +5,9 @@ import "github.com/google/uuid"
 // CorrelationID wrapper on the top of github.com/google/uuid
 type CorrelationID uuid.UUID
 
+// CorrelationIDNil is a nil value of CorrelationID
+var CorrelationIDNil = CorrelationID(uuid.Nil)
+
 func (c CorrelationID) String() string {
 	return uuid.UUID(c).String()
 }
