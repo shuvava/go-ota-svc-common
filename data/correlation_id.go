@@ -14,3 +14,13 @@ func NewCorrelationID() CorrelationID {
 	id := uuid.New()
 	return CorrelationID(id)
 }
+
+// NewChildCorrelationID create a new CorrelationID within a parent namespace
+func NewChildCorrelationID(parent CorrelationID, id string) CorrelationID {
+	parentID := uuid.UUID(parent)
+	if id == "" {
+		id = uuid.New().String()
+	}
+	childID := uuid.NewSHA1(parentID, []byte(id))
+	return CorrelationID(childID)
+}
