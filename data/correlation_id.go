@@ -1,6 +1,9 @@
 package data
 
-import "github.com/google/uuid"
+import (
+	"github.com/google/uuid"
+	"github.com/shuvava/go-ota-svc-common/apperrors"
+)
 
 // CorrelationID wrapper on the top of github.com/google/uuid
 type CorrelationID uuid.UUID
@@ -16,6 +19,20 @@ func (c CorrelationID) String() string {
 func NewCorrelationID() CorrelationID {
 	id := uuid.New()
 	return CorrelationID(id)
+}
+
+// FromString creates a new CorrelationID from a string
+func FromString(s string) (CorrelationID, error) {
+	id, err := uuid.Parse(s)
+	if err != nil {
+		return CorrelationIDNil, apperrors.CreateError(apperrors.ErrorDataSerialization, "failed to parse provided string", err)
+	}
+	return CorrelationID(id), nil
+}
+
+// IsNil returns true if the CorrelationID is nil
+func (c *CorrelationID) IsNil() bool {
+	return c == nil || uuid.UUID(*c) == uuid.Nil
 }
 
 // NewChildCorrelationID create a new CorrelationID within a parent namespace
