@@ -31,7 +31,7 @@ func TestCorrelationID_Serialization(t *testing.T) {
 	t.Run("CorrelationID should be serializable", func(t *testing.T) {
 		id := data.NewCorrelationID()
 		str := id.String()
-		newId, err := data.FromString(str)
+		newId, err := data.CorrelationIDFromString(str)
 		if err != nil {
 			t.Errorf("CorrelationID.FromString() returned error: %v", err)
 		}
