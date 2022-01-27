@@ -21,8 +21,8 @@ func NewCorrelationID() CorrelationID {
 	return CorrelationID(id)
 }
 
-// FromString creates a new CorrelationID from a string
-func FromString(s string) (CorrelationID, error) {
+// CorrelationIDFromString creates a new CorrelationID from a string
+func CorrelationIDFromString(s string) (CorrelationID, error) {
 	id, err := uuid.Parse(s)
 	if err != nil {
 		return CorrelationIDNil, apperrors.CreateError(apperrors.ErrorDataSerialization, "failed to parse provided string", err)
