@@ -37,3 +37,26 @@ func TestValidHex(t *testing.T) {
 		})
 	}
 }
+
+func TestValidBase64(t *testing.T) {
+	cases := []struct {
+		Base64   string
+		Expected bool
+	}{
+		{Base64: "WvLTlMrX9NpYDQlEIFlnDA==", Expected: true},
+		{Base64: "Invalid string", Expected: false},
+	}
+	for _, test := range cases {
+		exStr := "valid"
+		if test.Expected != true {
+			exStr = "invalid"
+		}
+		name := fmt.Sprintf("string '%s' is %s", test.Base64, exStr)
+		t.Run(name, func(t *testing.T) {
+			got := data.ValidBase64(test.Base64)
+			if got != test.Expected {
+				t.Errorf("got %v, want %v", got, test.Expected)
+			}
+		})
+	}
+}

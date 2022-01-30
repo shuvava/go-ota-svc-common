@@ -25,3 +25,9 @@ func ToBase64(val string) ([]byte, error) {
 	s := strings.ReplaceAll(strings.ReplaceAll(val, "/", ""), "_", "/")
 	return base64.StdEncoding.DecodeString(s)
 }
+
+// ValidBase64 verifies if str is valid base64
+func ValidBase64(val string) bool {
+	v, err := base64.StdEncoding.DecodeString(val)
+	return err == nil && len(v) > 0
+}
