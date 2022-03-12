@@ -7,6 +7,15 @@ import (
 	"github.com/labstack/echo/v4"
 
 	"github.com/shuvava/go-logging/logger"
+
+	"github.com/shuvava/go-ota-svc-common/data"
+)
+
+const (
+	// DefaultNamespaceValue is default OTA namespace
+	DefaultNamespaceValue = "default"
+
+	headerNamespace = "x-ats-namespace"
 )
 
 // GetRequestContext return populated request context.Context
@@ -33,4 +42,13 @@ func GetContentSize(ctx echo.Context) int64 {
 		return 0
 	}
 	return size
+}
+
+// GetNamespace returns TreeHub namespace from header
+func GetNamespace(ctx echo.Context) data.Namespace {
+	ns := ctx.Request().Header.Get(headerNamespace)
+	if ns == "" {
+		ns = DefaultNamespaceValue
+	}
+	return data.NewNamespace(ns)
 }
