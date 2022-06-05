@@ -19,12 +19,12 @@ set -o nounset
 set -o pipefail
 
 if [ -z "${OS:-}" ]; then
-    echo "OS must be set"
-    exit 1
+  echo "OS must be set"
+  exit 1
 fi
 if [ -z "${ARCH:-}" ]; then
-    echo "ARCH must be set"
-    exit 1
+  echo "ARCH must be set"
+  exit 1
 fi
 
 export CGO_ENABLED=0
@@ -33,6 +33,6 @@ export GOOS="${OS}"
 export GO111MODULE=on
 export GOFLAGS="${GOFLAGS:-} -mod=${MOD}"
 
-go install                                                      \
-    -installsuffix "static"                                     \
-    "$@"
+go install                                                    \
+  -installsuffix "static"                                     \
+  "$@"

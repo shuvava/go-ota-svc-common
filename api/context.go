@@ -21,7 +21,7 @@ const (
 // GetRequestContext return populated request context.Context
 func GetRequestContext(ctx echo.Context) context.Context {
 	c := ctx.Request().Context()
-	rid := ctx.Response().Header().Get(echo.HeaderXRequestID)
+	rid := ctx.Request().Header.Get(echo.HeaderXRequestID)
 	return context.
 		WithValue(c, logger.ContextKeyRequestID, rid)
 }
