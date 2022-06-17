@@ -67,8 +67,8 @@ github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZN
 github.com/rogpeppe/go-internal v1.1.0/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFRclV5y23lUDJ4=
 github.com/rogpeppe/go-internal v1.2.2/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFRclV5y23lUDJ4=
 github.com/rogpeppe/go-internal v1.3.0/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFRclV5y23lUDJ4=
-github.com/shuvava/go-logging v1.0.5 h1:4XKL4joT6kzGuXNMizA/6zLm+uQNH4BvTCFLHf2JgmM=
-github.com/shuvava/go-logging v1.0.5/go.mod h1:4ReA5wGShDtIh+BDwKA0La1/Cpz3btVkQZF+RisGafw=
+github.com/shuvava/go-logging v1.0.6 h1:fOHl5tAdA0h+a9Ys4cZrM0XcscRfpbLq3mUzfKZZSXo=
+github.com/shuvava/go-logging v1.0.6/go.mod h1:4ReA5wGShDtIh+BDwKA0La1/Cpz3btVkQZF+RisGafw=
 github.com/sirupsen/logrus v1.4.0/go.mod h1:LxeOpSwHxABJmUn/MG1IvRgCAasNZTLOkJPxbbu5VWo=
 github.com/sirupsen/logrus v1.4.1/go.mod h1:ni0Sbl8bgC9z8RoU9G6nDWqqs/fq4eDPysMBDgk/93Q=
 github.com/sirupsen/logrus v1.4.2/go.mod h1:tLMulIdttU9McNUspp0xgXVQah82FyeX6MwdIuYE2rE=

@@ -21,9 +21,13 @@ const (
 // GetRequestContext return populated request context.Context
 func GetRequestContext(ctx echo.Context) context.Context {
 	c := ctx.Request().Context()
-	rid := ctx.Request().Header.Get(echo.HeaderXRequestID)
-	return context.
+	rid := GetRequestID(ctx)
+	tenantID := GetNamespace(ctx)
+
+	newCtx := context.
 		WithValue(c, logger.ContextKeyRequestID, rid)
+	return context.
+		WithValue(newCtx, logger.ContextKeyTenantID, tenantID)
 }
 
 // GetContentType returns value of ContentType header
@@ -44,11 +48,20 @@ func GetContentSize(ctx echo.Context) int64 {
 	return size
 }
 
-// GetNamespace returns TreeHub namespace from header
+// GetNamespace returns OTA namespace from header
 func GetNamespace(ctx echo.Context) data.Namespace {
 	ns := ctx.Request().Header.Get(headerNamespace)
 	if ns == "" {
 		ns = DefaultNamespaceValue
 	}
 	return data.NewNamespace(ns)
+}
+
+// GetRequestID returns RequestID from header
+func GetRequestID(ctx echo.Context) string {
+	rid := ctx.Request().Header.Get(echo.HeaderXRequestID)
+	if rid == "" {
+		rid = data.NewCorrelationID().String()
+	}
+	return rid
 }
