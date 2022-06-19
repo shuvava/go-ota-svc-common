@@ -304,7 +304,7 @@ func (db *Db) ReplaceOne(ctx context.Context, coll *mongo.Collection, filter int
 }
 
 // Aggregate execute custom aggregate query
-func (db *Db) Aggregate(ctx context.Context, coll *mongo.Collection, pipe interface{}, opts *options.AggregateOptions) ([]DBResult, error) {
+func (db *Db) Aggregate(ctx context.Context, coll *mongo.Collection, pipe interface{}, opts *options.AggregateOptions, documents interface{}) error {
 	log := db.log.WithContext(ctx)
 	defer log.TrackFuncTime(time.Now())
 
@@ -317,19 +317,18 @@ func (db *Db) Aggregate(ctx context.Context, coll *mongo.Collection, pipe interf
 
 	data, err := coll.Aggregate(ctxAgg, pipe, opts)
 	if err != nil {
-		return nil, apperrors.CreateErrorAndLogIt(log,
+		return apperrors.CreateErrorAndLogIt(log,
 			apperrors.ErrorDbOperation,
 			"Failed to run DB query", err)
 	}
-	var res []DBResult
-	err = data.All(ctxAgg, &res)
+	err = data.All(ctxAgg, documents)
 	if err != nil {
-		return nil, apperrors.CreateErrorAndLogIt(log,
+		return apperrors.CreateErrorAndLogIt(log,
 			apperrors.ErrorDbOperation,
 			"failed to decode results", err)
 	}
 
-	return res, nil
+	return nil
 }
 
 // UpdateOne updates a fields in single document looked up by filter
