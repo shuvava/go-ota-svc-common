@@ -17,6 +17,7 @@ linters:
     - ineffassign
     - gosimple
     - gofmt
+    - revive
 
 issues:
   exclude-use-default: false

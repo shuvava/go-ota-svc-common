@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/shuvava/go-logging/logger"
 	"github.com/shuvava/go-ota-svc-common/apperrors"
 	"github.com/shuvava/go-ota-svc-common/db"
 
-	"github.com/shuvava/go-logging/logger"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -304,14 +304,18 @@ func (db *Db) ReplaceOne(ctx context.Context, coll *mongo.Collection, filter int
 }
 
 // Aggregate execute custom aggregate query
-func (db *Db) Aggregate(ctx context.Context, coll *mongo.Collection, pipe interface{}) ([]DBResult, error) {
+func (db *Db) Aggregate(ctx context.Context, coll *mongo.Collection, pipe interface{}, opts *options.AggregateOptions) ([]DBResult, error) {
 	log := db.log.WithContext(ctx)
 	defer log.TrackFuncTime(time.Now())
 
 	ctxAgg, cancel := context.WithTimeout(ctx, db.Timeout)
 	defer cancel()
 
-	data, err := coll.Aggregate(ctxAgg, pipe)
+	if opts == nil {
+		opts = options.Aggregate()
+	}
+
+	data, err := coll.Aggregate(ctxAgg, pipe, opts)
 	if err != nil {
 		return nil, apperrors.CreateErrorAndLogIt(log,
 			apperrors.ErrorDbOperation,

@@ -6,8 +6,6 @@ import (
 	"testing"
 
 	"github.com/shuvava/go-logging/logger"
-	"go.mongodb.org/mongo-driver/bson/primitive"
-
 	"github.com/shuvava/go-ota-svc-common/apperrors"
 	"github.com/shuvava/go-ota-svc-common/db/mongo"
 )
@@ -25,11 +23,4 @@ func TestMongoDB(t *testing.T) {
 			t.Errorf("got %s, expected %s", err, apperrors.ErrorDbConnection)
 		}
 	})
-}
-
-type SomeDoc struct {
-	ID      primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
-	Name    string             `bson:"name" json:"name"`
-	Surname string             `bson:"surname" json:"surname"`
-	Value   int                `bson:"value" json:"value"`
 }
