@@ -1,7 +1,10 @@
 package data
 
 import (
+	"encoding/json"
+
 	"github.com/google/uuid"
+
 	"github.com/shuvava/go-ota-svc-common/apperrors"
 )
 
@@ -11,8 +14,28 @@ type CorrelationID uuid.UUID
 // CorrelationIDNil is a nil value of CorrelationID
 var CorrelationIDNil = CorrelationID(uuid.Nil)
 
+// String converts CorrelationID to string
 func (c CorrelationID) String() string {
 	return uuid.UUID(c).String()
+}
+
+// MarshalJSON custom json serialization func
+func (c *CorrelationID) MarshalJSON() ([]byte, error) {
+	return json.Marshal(c.String())
+}
+
+// UnmarshalJSON custom json deserialization func
+func (c *CorrelationID) UnmarshalJSON(data []byte) error {
+	var s string
+	if err := json.Unmarshal(data, &s); err != nil {
+		return err
+	}
+	id, err := CorrelationIDFromString(s)
+	if err != nil {
+		return err
+	}
+	*c = id
+	return nil
 }
 
 // NewCorrelationID creates a new CorrelationID
