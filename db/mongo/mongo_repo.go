@@ -44,6 +44,8 @@ type BaseMongoRepository interface {
 	UpdateOne(ctx context.Context, coll *mongo.Collection, filter interface{}, update interface{}) error
 	// Count returns count of documents looked up by filter
 	Count(ctx context.Context, coll *mongo.Collection, filter interface{}) (int64, error)
+	// CollectionStats returns general statistics about mongodb collection
+	CollectionStats(ctx context.Context, coll *mongo.Collection) (*CollectionStats, error)
 }
 
 // DBResult DB result from custom queries
@@ -56,6 +58,18 @@ type Db struct {
 	database string
 	Timeout  time.Duration
 	BaseMongoRepository
+}
+
+// CollectionStats collection statistics
+type CollectionStats struct {
+	// Size is collection size in bytes
+	Size int64 `json:"size"`
+	//AvgObjSize is Average object size in bytes
+	AvgObjSize int `json:"avgObjSize"`
+	//StorageSize is storage size in bytes
+	StorageSize int64 `json:"storageSize"`
+	//TotalIndexSize isTotal index size in bytes
+	TotalIndexSize int64 `json:"totalIndexSize"`
 }
 
 // NewMongoDB create a new Db instance, with the connection URI provided
@@ -357,6 +371,21 @@ func (db *Db) UpdateOne(ctx context.Context, coll *mongo.Collection, filter inte
 		Debug("Update completed")
 
 	return nil
+}
+
+// CollectionStats returns general statistics about mongodb collection
+func (db *Db) CollectionStats(ctx context.Context, coll *mongo.Collection) (*CollectionStats, error) {
+	log := db.log.WithContext(ctx)
+	defer log.TrackFuncTime(time.Now())
+
+	ctxSts, cancel := context.WithTimeout(ctx, db.Timeout)
+	defer cancel()
+	result := coll.Database().RunCommand(ctxSts, bson.M{"collStats": coll.Name()})
+	var doc CollectionStats
+	if err := result.Decode(&doc); err != nil {
+		return nil, err
+	}
+	return &doc, nil
 }
 
 // parseObjectID is a helper to parse a string assetID into a MongoDB-format ObjectID
