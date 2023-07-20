@@ -16,3 +16,5 @@
 .idea/
 .go/
 bin/
+# local test
+db/mongo/not_add_to_git_test.go
