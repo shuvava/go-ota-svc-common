@@ -1,6 +1,7 @@
 package apperrors
 
 import (
+	"errors"
 	"fmt"
 )
 
@@ -33,4 +34,23 @@ func NewAppError(code AppErrorCode, descr string) error {
 // CreateError create new AppError
 func CreateError(code AppErrorCode, descr string, err error) error {
 	return NewAppError(code, fmt.Sprintf("%s (%v)", descr, err))
+}
+
+// ToAppErrorWithCode unwrap generic error to AppError or create AppErrorCode with provided code
+func ToAppErrorWithCode(err error, code AppErrorCode) *AppError {
+	if err == nil {
+		return nil
+	}
+	var appErr AppError
+	if errors.As(err, &appErr) {
+		return &appErr
+	}
+	appErr.ErrorCode = code
+	appErr.Description = err.Error()
+	return &appErr
+}
+
+// ToAppError unwrap generic error to AppError or create AppErrorCode with ErrorGeneric code
+func ToAppError(err error) *AppError {
+	return ToAppErrorWithCode(err, ErrorGeneric)
 }
