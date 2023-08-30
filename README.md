@@ -8,7 +8,7 @@ This library contains common functions for OTA services.
 ## Installation
 
 ```shell
-  go get github.com/shuvava/go-ota-svc-common@v1.1.3
+  go get github.com/shuvava/go-ota-svc-common@v1.1.4
 ```
 
 * *Note:** This library is not intended to be used directly.
