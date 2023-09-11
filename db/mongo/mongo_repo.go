@@ -84,19 +84,13 @@ func NewMongoDB(ctx context.Context, lgr logger.Logger, connectString string) (*
 			fmt.Sprintf("Connection string validation failed (%v)", err))
 	}
 
-	client, err := mongo.NewClient(options.Client().ApplyURI(connectString))
+	ctxConnect, cancel := context.WithTimeout(ctx, defaultMongoTimeout)
+	defer cancel()
+	client, err := mongo.Connect(ctxConnect, options.Client().ApplyURI(connectString))
 	if err != nil {
 		return nil, apperrors.CreateErrorAndLogIt(log,
 			apperrors.ErrorDbConnection,
 			"Creating NewClient failed", err)
-	}
-
-	ctxConnect, cancel := context.WithTimeout(ctx, defaultMongoTimeout)
-	defer cancel()
-	if err = client.Connect(ctxConnect); err != nil {
-		return nil, apperrors.CreateErrorAndLogIt(log,
-			apperrors.ErrorDbConnection,
-			"Database connect failed", err)
 	}
 
 	inst := Db{
